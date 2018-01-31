@@ -13,6 +13,8 @@ import AlamofireImage
 class NowPlayingViewController: UIViewController, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var refreshingIndicator: UIActivityIndicatorView!
+    
     
     var movies: [[String: Any]] = []
     var refreshControl: UIRefreshControl!
@@ -45,8 +47,10 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let movies = dataDictionary["results"] as! [[String: Any]]
                 self.movies = movies
+                self.refreshingIndicator.startAnimating()
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
+                self.refreshingIndicator.stopAnimating()
                 
             }
         }
@@ -75,8 +79,14 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         let posterURL = URL(string: baseURLString + posterPathString)!
         cell.posterImageView.af_setImage(withURL: posterURL)
         
+      
         return cell
     }
+    
+    func posterTouched(gesture: UIGestureRecognizer) {
+        print("touched")
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
