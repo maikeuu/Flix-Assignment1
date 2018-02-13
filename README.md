@@ -3,6 +3,8 @@
 
 **Flix* is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
+https://imgur.com/kSigviI.gif
+
 Time spent: **4** hours spent in total
 
 ## User Stories
