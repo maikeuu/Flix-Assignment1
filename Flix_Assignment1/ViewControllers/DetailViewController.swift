@@ -22,7 +22,11 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.black
+        
         if let movie = movie {
+            navigationItem.title = movie["title"] as? String
+            
             titleLabel.text = movie["title"] as? String
             releaseDateLabel.text = movie["release_date"] as? String
             overviewLabel.text = movie["overview"] as? String
@@ -30,33 +34,16 @@ class DetailViewController: UIViewController {
             let posterPathString = movie["poster_path"] as! String
             let baseURLString = "https://image.tmdb.org/t/p/w500"
             
-            
-            
             let backDropURL = URL(string: baseURLString + backdropPath)!
             backDropImageView.af_setImage(withURL: backDropURL)
             
-            
             let posterPathURL = URL(string: baseURLString + posterPathString)!
             posterImageView.af_setImage(withURL: posterPathURL)
-            
         }
-        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

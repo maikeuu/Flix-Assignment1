@@ -8,7 +8,8 @@
 
 import UIKit
 
-class SuperHeroViewController: UIViewController, UICollectionViewDataSource {
+class SuperHeroViewController: UIViewController, UICollectionViewDataSource, UISearchResultsUpdating {
+    
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -17,10 +18,9 @@ class SuperHeroViewController: UIViewController, UICollectionViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.black
         fetchMovies()
-        
         collectionView.dataSource = self
-        
         let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         let cellsPerLine: CGFloat = 2
         layout.minimumInteritemSpacing = 5
@@ -28,10 +28,6 @@ class SuperHeroViewController: UIViewController, UICollectionViewDataSource {
         let interItemSpacingTotal = layout.minimumInteritemSpacing * (cellsPerLine - 1)
         let width = collectionView.frame.size.width/cellsPerLine - (interItemSpacingTotal / cellsPerLine)
         layout.itemSize = CGSize(width: width, height: width * 3/2)
-        
-        
-
-        // Do any additional setup after loading the view.
     }
     
     
@@ -62,7 +58,7 @@ class SuperHeroViewController: UIViewController, UICollectionViewDataSource {
                 let alertTitle = "Cannot get movies"
                 let alertMessage = "Network connection appears to be down, please try again"
                 let alertController = UIAlertController(title: alertTitle,
-                                                        message: alertMessage, preferredStyle: .alert)
+                        message: alertMessage, preferredStyle: .alert)
                 let OKAction = UIAlertAction(title: "OK", style: .default) { (action) in
                     self.fetchMovies()
                 }
@@ -72,27 +68,29 @@ class SuperHeroViewController: UIViewController, UICollectionViewDataSource {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 let movies = dataDictionary["results"] as! [[String: Any]]
                 self.movies = movies
-//                self.refreshingIndicator.startAnimating()
                 self.collectionView.reloadData()
             }
         }
         task.resume()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UICollectionViewCell
+        if let indexPath = collectionView.indexPath(for: cell) {
+            let movie = movies[indexPath.row]
+            let detailViewController = segue.destination as! DetailViewController
+            detailViewController.movie = movie
+        }
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

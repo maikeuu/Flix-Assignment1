@@ -10,35 +10,29 @@ import UIKit
 import AlamofireImage
 
 
-class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NowPlayingViewController: UIViewController, UITableViewDelegate,
+        UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var refreshingIndicator: UIActivityIndicatorView!
     
-    
     var movies: [[String: Any]] = []
     var refreshControl: UIRefreshControl!
+    var listOfTitles: [String] = []
+    var filteredTitles: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self,
                 action: #selector(NowPlayingViewController.didPullToRefresh(_:)),
                 for: .valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
-
         tableView.dataSource = self
         fetchMovies()
     }
-    
-    @objc func didPullToRefresh(_ refreshControl: UIRefreshControl) {
-        fetchMovies()
-    }
-    
     
     func fetchMovies() {
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
@@ -66,7 +60,10 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
                 self.refreshingIndicator.stopAnimating()
-                
+            }
+            //load title into filteredMovies array
+            for movie in self.movies {
+                self.listOfTitles.append(movie["title"] as! String)
             }
         }
         task.resume()
@@ -102,6 +99,10 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate, UITableVi
             let detailViewController = segue.destination as! DetailViewController
             detailViewController.movie = movie
         }
+    }
+    
+    @objc func didPullToRefresh(_ refreshControl: UIRefreshControl) {
+        fetchMovies()
     }
     
     
