@@ -31,6 +31,8 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate,
                 for: .valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
         tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 50
         fetchMovies()
     }
     
@@ -60,10 +62,6 @@ class NowPlayingViewController: UIViewController, UITableViewDelegate,
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
                 self.refreshingIndicator.stopAnimating()
-            }
-            //load title into filteredMovies array
-            for movie in self.movies {
-                self.listOfTitles.append(movie["title"] as! String)
             }
         }
         task.resume()
