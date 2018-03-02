@@ -20,6 +20,8 @@
 		C4E265BC20207C4600E39B80 /* Flix_Assignment1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E265BB20207C4600E39B80 /* Flix_Assignment1UITests.swift */; };
 		C4E265CA202083BE00E39B80 /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E265C9202083BE00E39B80 /* NowPlayingViewController.swift */; };
 		C4E265CC20208EBE00E39B80 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E265CB20208EBE00E39B80 /* MovieCell.swift */; };
+		C4FAD39A2047B83B00518AB1 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FAD3992047B83B00518AB1 /* Movie.swift */; };
+		C4FAD39E2047C31000518AB1 /* MovieAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FAD39D2047C31000518AB1 /* MovieAPIManager.swift */; };
 		E5CA2E99D3CA1E17124404BE /* Pods_Flix_Assignment1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A84D34A08FF811C61634B8 /* Pods_Flix_Assignment1.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +67,8 @@
 		C4E265BD20207C4600E39B80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4E265C9202083BE00E39B80 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 		C4E265CB20208EBE00E39B80 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
+		C4FAD3992047B83B00518AB1 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		C4FAD39D2047C31000518AB1 /* MovieAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieAPIManager.swift; sourceTree = "<group>"; };
 		CA3530E0304EB0E442A4B4FD /* Pods-Flix_Assignment1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flix_Assignment1.release.xcconfig"; path = "Pods/Target Support Files/Pods-Flix_Assignment1/Pods-Flix_Assignment1.release.xcconfig"; sourceTree = "<group>"; };
 		FBC521DFAB21DB7277350025 /* Pods-Flix_Assignment1Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flix_Assignment1Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Flix_Assignment1Tests/Pods-Flix_Assignment1Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,6 +168,8 @@
 		C4E2659A20207C4500E39B80 /* Flix_Assignment1 */ = {
 			isa = PBXGroup;
 			children = (
+				C4FAD39C2047C2FB00518AB1 /* API */,
+				C4FAD3982047B81500518AB1 /* Models */,
 				C44BE323202A7D3F00CDF34C /* Views */,
 				C44BE324202A7D5600CDF34C /* ViewControllers */,
 				C4E2659B20207C4500E39B80 /* AppDelegate.swift */,
@@ -191,6 +197,22 @@
 				C4E265BD20207C4600E39B80 /* Info.plist */,
 			);
 			path = Flix_Assignment1UITests;
+			sourceTree = "<group>";
+		};
+		C4FAD3982047B81500518AB1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C4FAD3992047B83B00518AB1 /* Movie.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C4FAD39C2047C2FB00518AB1 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				C4FAD39D2047C31000518AB1 /* MovieAPIManager.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -488,10 +510,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4FAD39A2047B83B00518AB1 /* Movie.swift in Sources */,
 				C44BE32A202A90BF00CDF34C /* SuperHeroViewController.swift in Sources */,
 				C4E265CA202083BE00E39B80 /* NowPlayingViewController.swift in Sources */,
 				C44BE328202A908900CDF34C /* PosterCell.swift in Sources */,
 				C4E2659C20207C4500E39B80 /* AppDelegate.swift in Sources */,
+				C4FAD39E2047C31000518AB1 /* MovieAPIManager.swift in Sources */,
 				C4E265CC20208EBE00E39B80 /* MovieCell.swift in Sources */,
 				C44BE326202A7D8A00CDF34C /* DetailViewController.swift in Sources */,
 			);

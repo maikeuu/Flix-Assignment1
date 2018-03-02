@@ -212,7 +212,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="PRF-hI-h6B" kind="relationship" relationship="viewControllers" id="wTZ-uw-eny"/>
-                        <segue destination="xdS-gG-avI" kind="relationship" relationship="viewControllers" id="Xp5-81-Nsn"/>
+                        <segue destination="xdS-gG-avI" kind="relationship" relationship="viewControllers" id="W8r-f1-Jzf"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nnv-qX-8um" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -306,6 +306,6 @@
         <image name="superhero_tabbar_item" width="21" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Uff-LQ-QiX"/>
+        <segue reference="0Ye-sU-eJA"/>
     </inferredMetricsTieBreakers>
 </document>
