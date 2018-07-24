@@ -18,14 +18,35 @@ class NowPlayingViewController: UITableViewController {
     }()
     
     var movies: [Movie] = []
+    var filteredMovies: [Movie] = []
+    let searchController = UISearchController(searchResultsController: nil)
+
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let offsetY = scrollView.contentOffset.y
+//        let contentHeight = scrollView.contentSize.height
+//
+//        if offsetY > contentHeight - scrollView.frame.size.height {
+//            fetchMovies()
+//            self.tableView.reloadData()
+//        }
+//    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Flix"
         view.backgroundColor = .white
+        navigationItem.title = "Flix"
         tableView.register(MovieCell.self, forCellReuseIdentifier: "MovieCell")
+        setupSearchController()
         setupRefreshControl()
         fetchMovies()
+    }
+    
+    func setupSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.dimsBackgroundDuringPresentation = false
+        tableView.tableHeaderView = searchController.searchBar
     }
     
     func setupRefreshControl() {
@@ -39,6 +60,7 @@ class NowPlayingViewController: UITableViewController {
         MovieApiManager().nowPlayingMovies { (movies: [Movie]?, error: Error?) in
             if let movies = movies {
                 self.movies = movies
+                self.filteredMovies = movies
                 self.tableView.reloadData()
                 refreshControl.endRefreshing()
             } else if let error = error {
@@ -61,7 +83,7 @@ class NowPlayingViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let movie = movies[indexPath.row]
+        let movie = filteredMovies[indexPath.row]
         let detailVC = DetailViewController()
         detailVC.movie = movie
         navigationController?.pushViewController(detailVC, animated: true)
@@ -69,14 +91,26 @@ class NowPlayingViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
-        cell.movie = movies[indexPath.row]
+        cell.movie = filteredMovies[indexPath.row]
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return filteredMovies.count
     }
 }
 
+extension NowPlayingViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text, !searchText.isEmpty {
+            filteredMovies = movies.filter({ (movie) -> Bool in
+                return movie.title.lowercased().contains(searchText.lowercased())
+            })
+        } else {
+            filteredMovies = movies
+        }
+        tableView.reloadData()
+    }
+}
 
 
