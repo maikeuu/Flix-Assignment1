@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Bh7-Oi-4Zz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Bh7-Oi-4Zz">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -169,13 +169,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7pV-Ew-x1B"/>
                     </view>
-                    <connections>
-                        <outlet property="backDropImageView" destination="RD9-Eb-7xM" id="h45-RG-c2Z"/>
-                        <outlet property="overviewLabel" destination="DDk-wv-Zzj" id="wOi-mV-qft"/>
-                        <outlet property="posterImageView" destination="0O5-S2-zhx" id="ue9-Yh-GuN"/>
-                        <outlet property="releaseDateLabel" destination="eUP-U0-nIi" id="rdm-DE-n7V"/>
-                        <outlet property="titleLabel" destination="ONV-6h-yyw" id="iS7-iM-jdW"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fxq-rW-6Hf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -256,7 +249,6 @@
                                             <constraint firstAttribute="bottom" secondItem="yYq-1T-a4M" secondAttribute="bottom" id="qBn-Rx-fJp"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="posterImageView" destination="yYq-1T-a4M" id="lUP-q9-sBw"/>
                                             <segue destination="gV8-4E-yna" kind="show" id="Uff-LQ-QiX"/>
                                         </connections>
                                     </collectionViewCell>
@@ -306,6 +298,6 @@
         <image name="superhero_tabbar_item" width="21" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0Ye-sU-eJA"/>
+        <segue reference="Uff-LQ-QiX"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -10,40 +10,41 @@ import UIKit
 import AlamofireImage
 
 
-class NowPlayingViewController: UIViewController {
-
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var refreshingIndicator: UIActivityIndicatorView!
+class NowPlayingViewController: UITableViewController {
+    
+    let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        return indicator
+    }()
     
     var movies: [Movie] = []
     
-    var refreshControl: UIRefreshControl!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpViews()
-        fetchMovies(refreshControl)
+        navigationItem.title = "Flix"
+        view.backgroundColor = .white
+        tableView.register(MovieCell.self, forCellReuseIdentifier: "MovieCell")
+        setupRefreshControl()
+        fetchMovies()
     }
     
-    @objc func fetchMovies(_ refreshControl: UIRefreshControl) {
-        self.refreshingIndicator.startAnimating()
+    func setupRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(fetchMovies), for: .valueChanged)
+    }
+
+    @objc func fetchMovies() {
+        guard let refreshControl = refreshControl else { return }
+        refreshControl.beginRefreshing()
         MovieApiManager().nowPlayingMovies { (movies: [Movie]?, error: Error?) in
             if let movies = movies {
                 self.movies = movies
                 self.tableView.reloadData()
-                self.refreshControl.endRefreshing()
+                refreshControl.endRefreshing()
             } else if let error = error {
                 self.handleNetworkError()
+                print(error)
             }
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cell = sender as! UITableViewCell
-        if let indexPath = tableView.indexPath(for: cell) {
-            let movie = movies[indexPath.row]
-            let detailViewController = segue.destination as! DetailViewController
-            detailViewController.movie = movie
         }
     }
     
@@ -53,38 +54,29 @@ class NowPlayingViewController: UIViewController {
         let alertController = UIAlertController(title: alertTitle,
                                                 message: alertMessage, preferredStyle: .alert)
         let OKAction = UIAlertAction(title: "OK", style: .default) { (action) in
-            self.fetchMovies(self.refreshControl)
+            self.fetchMovies()
         }
         alertController.addAction(OKAction)
         self.present(alertController, animated: true) {}
     }
-}
-
-extension NowPlayingViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = movies[indexPath.row]
+        let detailVC = DetailViewController()
+        detailVC.movie = movie
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         cell.movie = movies[indexPath.row]
         return cell
     }
-}
-
-extension NowPlayingViewController: UITableViewDataSource {
-    func setUpViews() {
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self,
-                                 action: #selector(NowPlayingViewController.fetchMovies(_:)),
-                                 for: .valueChanged)
-        tableView.insertSubview(refreshControl, at: 0)
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 50
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return movies.count
     }
 }
+
 
 
